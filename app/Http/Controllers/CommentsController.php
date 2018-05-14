@@ -58,7 +58,7 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(CommentStoreRequest $request, $id)
     {
         $comment = Comment::find($request['id']);
         return response()->json($comment, 201);
@@ -82,7 +82,7 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentStoreRequest $request, $id)
     {
         $comment = Comment::find($request['id']);
         $comment->update($request->All());

@@ -39,7 +39,7 @@ class CountriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountriesStoreRequest $request)
     {
       $country = Country::create($request->all());
       return response()->json($country, 201);
@@ -74,7 +74,7 @@ class CountriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CountriesStoreRequest $request, $id)
     {
       $country = Country::find($request['id']);
       $country->update($request->all());

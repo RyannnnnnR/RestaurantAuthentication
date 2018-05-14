@@ -39,7 +39,7 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoriesStoreRequest $request)
     {
       $category = Category::create($request->all());
       return response()->json($category, 201);
@@ -74,7 +74,7 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(CategoriesStoreRequest $request)
     {
       $category = Category::find($request['id']);
       $category->update($request->all());

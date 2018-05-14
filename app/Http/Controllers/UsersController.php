@@ -46,7 +46,7 @@ class UsersAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
         $user = User::create($request->All());
         return response()->json($user, 201);
@@ -82,7 +82,7 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UserStoreRequest $request)
     {
         $user = User::find($request['id']);
         $user->update($request->All());
