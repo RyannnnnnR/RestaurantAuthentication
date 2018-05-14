@@ -4,7 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CommentsController extends Controller
+use App\Restaurant;
+use App\Country;
+use App\Category;
+use App\Comment;
+use App\Post;
+use App\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Validator;
+use Input;
+use Session;
+use Redirect;
+
+class CommentsAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +27,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
+        return Comment::all();
     }
 
     /**
@@ -23,7 +37,7 @@ class CommentsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,7 +48,8 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comment = Comment::create($request->All());
+        return response()->json($comment, 201);
     }
 
     /**
@@ -43,9 +58,10 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $comment = Comment::find($request['id']);
+        return response()->json($comment, 201);
     }
 
     /**
@@ -66,19 +82,26 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $comment = Comment::find($request['id']);
+        $comment->update($request->All());
+        return response()->json($comment, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $comment = Comment::find($request['id']);
+        $comment->delete();
+        return response()->json(null, 204);
+
     }
 }

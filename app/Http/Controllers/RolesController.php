@@ -48,7 +48,7 @@ class RoleAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create($request-All());
+        $role = Role::create($request->All());
         return response()->json($role, 201);
     }
 
@@ -58,7 +58,7 @@ class RoleAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         $role = Role::find($request['id']);
         return response()->json($role, 201);
@@ -82,10 +82,10 @@ class RoleAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $role = Role::find($request['id']);
-        $role->update($request-All());
+        $role->update($request->All());
         return response()->json($role, 200);
     }
 
@@ -95,7 +95,7 @@ class RoleAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         $role = Role::find($request['id']);
         $role->delete();

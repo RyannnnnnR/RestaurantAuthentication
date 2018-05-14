@@ -48,7 +48,7 @@ class UsersAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request-All());
+        $user = User::create($request->All());
         return response()->json($user, 201);
     }
 
@@ -58,7 +58,7 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         $user = User::find($request['id']);
         return response()->json($user, 201);
@@ -82,10 +82,10 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $user = User::find($request['id']);
-        $user->update($request-All());
+        $user->update($request->All());
         return response()->json($user, 200);
     }
 
@@ -95,7 +95,7 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         $user = User::find($request['id']);
         $user->delete();
