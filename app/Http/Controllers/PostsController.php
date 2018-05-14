@@ -4,6 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+
+use App\Restaurant;
+use App\Country;
+use App\Category;
+use App\Comment;
+use App\Post;
+use App\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Validator;
+use Input;
+use Session;
+use Redirect;
+
 class PostsController extends Controller
 {
     /**
@@ -13,7 +29,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+            return Post::all();
     }
 
     /**
@@ -34,7 +50,9 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::create($request->All());
+        return response()->json($post, 201);
+
     }
 
     /**
@@ -45,7 +63,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($request['id']);
+        return response()->json($post, 201);
     }
 
     /**
@@ -68,7 +87,10 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($request['id']);
+        $post->update($request->All());
+        return response()->json($post, 200);
+
     }
 
     /**
@@ -79,6 +101,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($request['id']);
+        $post->delete();
+        return response()->json(null, 204);
     }
 }

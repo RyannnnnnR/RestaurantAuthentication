@@ -84,7 +84,6 @@ class CommentsAPIController extends Controller
      */
     public function update(Request $request)
     {
-
         $comment = Comment::find($request['id']);
         $comment->update($request->All());
         return response()->json($comment, 200);
