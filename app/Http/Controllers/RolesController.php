@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+
+use App\Restaurant;
+use App\Country;
+use App\Category;
+use App\Comment;
+use App\Post;
+use App\Role;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
 use Validator;
@@ -11,7 +18,7 @@ use Input;
 use Session;
 use Redirect;
 
-class RolesController extends Controller
+class RoleAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +27,7 @@ class RolesController extends Controller
      */
     public function index()
     {
-      $roles = Role::all();
-      return View::make('roles.index')->with('roles', $roles);
+        return Role::all();
     }
 
     /**
@@ -31,7 +37,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        return View::make('roles.create');
+
     }
 
     /**
@@ -42,7 +48,8 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = Role::create($request->All());
+        return response()->json($role, 201);
     }
 
     /**
@@ -51,9 +58,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //Not applicable
+        $role = Role::find($request['id']);
+        return response()->json($role, 201);
     }
 
     /**
@@ -64,8 +72,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-      $role = Role::find($id);
-      return View::make('roles.edit')->with('role', $role);
+        //
     }
 
     /**
@@ -75,9 +82,11 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $role = Role::find($request['id']);
+        $role->update($request->All());
+        return response()->json($role, 200);
     }
 
     /**
@@ -86,11 +95,11 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-      $role = Role::find($id);
-      $role->delete();
-      Session::flash('message', 'Successfully deleted that role');
-      return Redirect::to('restaurants');
+        $role = Role::find($request['id']);
+        $role->delete();
+        return response()->json(null, 204);
+
     }
 }

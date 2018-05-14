@@ -9,7 +9,7 @@ use App\Country;
 use App\Category;
 use App\Comment;
 use App\Post;
-use App\User;
+use App\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -18,7 +18,7 @@ use Input;
 use Session;
 use Redirect;
 
-class UsersAPIController extends Controller
+class RoleAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class UsersAPIController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return Role::all();
     }
 
     /**
@@ -48,8 +48,8 @@ class UsersAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->All());
-        return response()->json($user, 201);
+        $role = Role::create($request-All());
+        return response()->json($role, 201);
     }
 
     /**
@@ -58,10 +58,10 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        $user = User::find($request['id']);
-        return response()->json($user, 201);
+        $role = Role::find($request['id']);
+        return response()->json($role, 201);
     }
 
     /**
@@ -82,11 +82,11 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $user = User::find($request['id']);
-        $user->update($request->All());
-        return response()->json($user, 200);
+        $role = Role::find($request['id']);
+        $role->update($request-All());
+        return response()->json($role, 200);
     }
 
     /**
@@ -95,10 +95,10 @@ class UsersAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $user = User::find($request['id']);
-        $user->delete();
+        $role = Role::find($request['id']);
+        $role->delete();
         return response()->json(null, 204);
 
     }
