@@ -29,8 +29,7 @@ class RestaurantsController extends Controller
      */
     public function index()
     {
-      $restaurants = Restaurant::all();
-      return View::make('restaurants.index')->with('restaurants', $restaurants);
+      return response()->json(Restaurant::with(['country', 'category'])->find(18), 200);
     }
 
     /**
@@ -40,9 +39,7 @@ class RestaurantsController extends Controller
      */
     public function create()
     {
-        $countries = Country::pluck('name', 'id');
-        $categories = Category::pluck('name', 'id');
-        return View::make('restaurants.create')->with('countries', $countries)->with('categories', $categories);
+      //Not applicable
     }
 
     /**
@@ -53,21 +50,8 @@ class RestaurantsController extends Controller
      */
     public function store(RestaurantStoreRequest $request)
     {
-      // Store the data to the database
-      $restaurant = new Restaurant;
-      $restaurant->restname = Input::get('restname');
-      $restaurant->restphone = Input::get('restphone');
-      $restaurant->restaddress1 = Input::get('restaddress1');
-      $restaurant->restaddress2 = Input::get('restaddress2');
-      $restaurant->suburb = Input::get('suburb');
-      $restaurant->state = Input::get('state');
-      $restaurant->numberofseats = Input::get('numberofseats');
-      $restaurant->country_id = Input::get('country_id');
-      $restaurant->category_id = Input::get('category_id');
-      $restaurant->save();
-      // redirect
-      Session::flash('message', 'Successfully added restaurant!');
-      return Redirect::to('restaurants');
+      $restaurant = Restaurant::create($request->all());
+      return response()->json($restaurant, 201);
 
     }
 
