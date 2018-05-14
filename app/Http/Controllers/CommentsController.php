@@ -18,7 +18,7 @@ use Input;
 use Session;
 use Redirect;
 
-class CommentsAPIController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
