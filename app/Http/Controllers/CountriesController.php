@@ -20,8 +20,7 @@ class CountriesController extends Controller
      */
     public function index()
     {
-      $countries = Country::all();
-      return View::make('countries.index')->with('countries', $countries);
+      //
     }
 
     /**
@@ -31,7 +30,7 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        return View::make('countries.create');
+      //
     }
 
     /**
@@ -42,7 +41,8 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $country = Country::create($request->all());
+      return response()->json($country, 201);
     }
 
     /**
@@ -53,7 +53,7 @@ class CountriesController extends Controller
      */
     public function show($id)
     {
-        //Not applicable
+        //
     }
 
     /**
@@ -64,8 +64,7 @@ class CountriesController extends Controller
      */
     public function edit($id)
     {
-      $country = Country::find($id);
-      return View::make('countries.edit')->with('country', $country);
+      //
     }
 
     /**
@@ -77,7 +76,9 @@ class CountriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $country = Country::find($request['id']);
+      $country->update($request->all());
+      return response()->json($country, 200);
     }
 
     /**
@@ -90,7 +91,6 @@ class CountriesController extends Controller
     {
       $country = Country::find($id);
       $country->delete();
-      Session::flash('message', 'Successfully deleted the order detail!');
-      return Redirect::to('restuarants');
+      return respoonse()->json(null, 204);
     }
 }

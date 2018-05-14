@@ -29,7 +29,7 @@ class RestaurantsController extends Controller
      */
     public function index()
     {
-      return response()->json(Restaurant::with(['country', 'category'])->find(18), 200);
+      // return response()->json(Restaurant::with(['country', 'category'])->find(18), 200);
     }
 
     /**
@@ -41,7 +41,14 @@ class RestaurantsController extends Controller
     {
       //Not applicable
     }
-
+    public function findRestaurantWithCountryAndCategory(Request $request)
+    {
+      return response()->json(Restaurant::where([['country_id','=',$request['country_id']],['category_id','=',$request['country_id']]]), 200);
+    }
+    public function restaurantWithPostsAndComments(Request $request)
+    {
+      return response()->json(Restaurant::with(['country', 'category'])->find($request['id']), 200);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -63,9 +70,7 @@ class RestaurantsController extends Controller
      */
     public function show($id)
     {
-      $restaurant = Restaurant::find($id);
-      $users = User::pluck('name', 'id');
-      return View::make('restaurants.show')->with('restaurant', $restaurant)->with('users', $users);
+      //
     }
 
     /**
@@ -76,61 +81,7 @@ class RestaurantsController extends Controller
      */
     public function edit($id)
     {
-      $restaurant = Restaurant::find($id);
-      $countries = Country::pluck('name', 'id');
-      $categories = Category::pluck('name', 'id');
-      return View::make('restaurants.edit')->with('restaurant', $restaurant)->with('countries', $countries)->with('categories', $categories);;
-    }
-    public function createComment(CommentStoreRequest $request){
-      $comment = new Comment([
-        'content' => Input::get('content'),
-        'user_id' => Input::get('user_id'),
-        'post_id' => Input::get('post_id'),
-      ]);
-        $post = Post::find(Input::get('post_id'));
-        $post->comments()->save($comment);
-        Session::flash('message', 'Sucessfully saved comment');
-        return Redirect::to('restaurants/' .$post->restaurant_id);
-    }
-    //create routes and views
-    public function editComment(CommentStoreRequest $request,$id){
-      $comment = Comment::find($id);
-      $comment->content = Input::get('content');
-      $comment->save();
-      Session::flash('message', 'Successfully updated comment!');
-      return Redirect::to('restaurants/'. Post::find($comment->post_id)->restaurant_id);
-    }
-    public function deleteComment($id){
-      $comment = Comment::find($id);
-      $post =  Post::find($comment->post_id);
-      $comment->delete();
-      Session::flash('message', 'Successfully deleted comment!');
-      return Redirect::to('restaurants/'.$post->restaurant_id);
-    }
-    public function createPost(PostStoreRequest $request){
-      $post = new Post([
-        'content' => Input::get('content'),
-        'user_id' => Input::get('post_user_id'),
-        'restaurant_id' => Input::get('restaurant_id'),
-      ]);
-        $restaurant = Restaurant::find(Input::get('restaurant_id'));
-        $restaurant->posts()->save($post);
-        Session::flash('message', 'Sucessfully saved post');
-        return Redirect::to('restaurants/' .$restaurant->id);
-    }
-    public function editPost(PostStoreRequest $request,$id){
-      $post = Post::find($id);
-      $post->content = Input::get('content');
-      $post->save();
-      Session::flash('message', 'Successfully updated post!');
-      return Redirect::to('restaurants/'. $post->restaurant_id);
-    }
-    public function deletePost($id){
-      $post = Post::find($id);
-      $id = $post->restaurant_id;
-      $post->delete();
-      Session::flash('message', 'Successfully deleted post!');
-      return Redirect::to('restaurants/'. $id);
+      //
     }
     /**
      * Update the specified resource in storage.
@@ -139,21 +90,10 @@ class RestaurantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RestaurantStoreRequest $request, $id){
-            $restaurant = Restaurant::find($id);
-            $restaurant->restname = Input::get('restname');
-            $restaurant->restphone = Input::get('restphone');
-            $restaurant->restaddress1 = Input::get('restaddress1');
-            $restaurant->restaddress2 = Input::get('restaddress2');
-            $restaurant->suburb = Input::get('suburb');
-            $restaurant->state = Input::get('state');
-            $restaurant->numberofseats = Input::get('numberofseats');
-            $restaurant->country_id = Input::get('country_id');
-            $restaurant->category_id = Input::get('category_id');
-            $restaurant->save();
-            // redirect
-            Session::flash('message', 'Successfully updated restaurant!');
-            return Redirect::to('restaurants');
+    public function update(RestaurantStoreRequest $request){
+      $restaurant = Restauurant::find($request['id']);
+      $restaurant->update($request->all());
+      return response()->json($restaurant, 201);
    }
 
     /**
@@ -162,11 +102,9 @@ class RestaurantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($restid)
+    public function destroy(Request $request)
     {
-      $restaurant = Restaurant::find($restid);
-      $restaurant->delete();
-      Session::flash('message', 'Successfully deleted restaurant');
-      return Redirect::to('restaurants');
+      Restaurant::find($request['id'])->delete();
+      return response()->json(null, 204);
     }
 }

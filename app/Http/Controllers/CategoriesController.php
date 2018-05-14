@@ -20,8 +20,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-      $categories = Category::all();
-      return View::make('categories.index')->with('categories', $categories);
+      //
     }
 
     /**
@@ -31,7 +30,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return View::make('categories.create');
+        //
     }
 
     /**
@@ -42,7 +41,8 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $category = Category::create($request->all());
+      return response()->json($category, 201);
     }
 
     /**
@@ -51,9 +51,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //Not applicable
+
     }
 
     /**
@@ -64,8 +64,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-      $category = Category::find($id);
-      return View::make('categories.edit')->with('category', $category);
+      //
     }
 
     /**
@@ -75,9 +74,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+      $category = Category::find($request['id']);
+      $category->update($request->all());
+      return response()->json($category, 200);
     }
 
     /**
@@ -86,11 +87,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-      $category = Category::find($id);
-      $category->delete();
-      Session::flash('message', 'Successfully deleted the order detail!');
-      return Redirect::to('restaurants');
+      Country::find($request['id'])->delete();
+      return response()->json(null, 204)
     }
 }
