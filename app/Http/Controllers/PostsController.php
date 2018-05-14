@@ -61,7 +61,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $post = Post::find($request['id']);
         return response()->json($post, 201);
@@ -99,7 +99,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $post = Post::find($request['id']);
         $post->delete();
