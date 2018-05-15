@@ -33,6 +33,7 @@ Route::delete('categories/destroy','CategoriesController@destroy');
 
 
 Route::get('comments', 'CommentsController@index');
+Route::get('comments/show', 'CommentsController@show');
 Route::post('comments/store', 'CommentsController@store');
 Route::put('comments/update', 'CommentsController@update');
 Route::delete('comments/destroy','CommentsController@destroy');

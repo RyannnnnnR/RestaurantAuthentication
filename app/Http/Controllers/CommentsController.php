@@ -58,10 +58,10 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CommentStoreRequest $request, $id)
+    public function show(Request $request)
     {
         $comment = Comment::find($request['id']);
-        return response()->json($comment, 201);
+        return response()->json($comment, 200);
     }
 
     /**
