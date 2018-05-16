@@ -29,7 +29,7 @@ class RestaurantsController extends Controller
      */
     public function index()
     {
-      //return response()->json(Restaurant::with(['country', 'category'])->find(18), 200);
+      //  return response()->json(Restaurant::with(['country', 'category'])->find(18), 200);
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Category;
 use App\Comment;
 use App\Post;
 use App\Role;
+use App\Http\Requests\CommentStoreRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -46,7 +47,7 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentStoreRequest $request)
     {
         $comment = Comment::create($request->All());
         return response()->json($comment, 201);
@@ -82,7 +83,7 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CommentStoreRequest $request, $id)
+    public function update(CommentStoreRequest $request)
     {
         $comment = Comment::find($request['id']);
         $comment->update($request->All());
@@ -96,7 +97,7 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
         $comment = Comment::find($request['id']);
         $comment->delete();
