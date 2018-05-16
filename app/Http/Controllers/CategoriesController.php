@@ -3,7 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Restaurant;
 use App\Category;
+use App\Comment;
+use App\Post;
+use App\Role;
+use App\Country;
+use App\Http\Requests\CategoriesStoreRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
 use Validator;
@@ -20,7 +28,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-      //
+      return Category::all();
     }
 
     /**
@@ -41,7 +49,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoriesStoreRequest $request)
     {
-      $category = Category::create($request->all());
+      $category = Category::create($request->All());
       return response()->json($category, 201);
     }
 
@@ -89,7 +97,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Request $request)
     {
-      Country::find($request['id'])->delete();
-      return response()->json(null, 204)
+      $category = Category::find($request['id']);
+      $category->delete();
+      return response()->json(null, 204);
     }
 }

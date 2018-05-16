@@ -10,6 +10,7 @@ use App\Category;
 use App\Comment;
 use App\Post;
 use App\Role;
+use App\Http\Requests\RolesStoreRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -18,7 +19,7 @@ use Input;
 use Session;
 use Redirect;
 
-class RoleAPIController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
