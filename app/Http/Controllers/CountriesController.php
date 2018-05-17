@@ -3,7 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Restaurant;
+use App\Category;
+use App\Comment;
+use App\Post;
+use App\Role;
 use App\Country;
+use App\Http\Requests\CountriesStoreRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
 use Validator;
@@ -20,7 +28,7 @@ class CountriesController extends Controller
      */
     public function index()
     {
-      //
+      return Country::all();
     }
 
     /**
@@ -41,7 +49,7 @@ class CountriesController extends Controller
      */
     public function store(CountriesStoreRequest $request)
     {
-      $country = Country::create($request->all());
+      $country = Country::create($request->All());
       return response()->json($country, 201);
     }
 
@@ -74,10 +82,10 @@ class CountriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CountriesStoreRequest $request, $id)
+    public function update(CountriesStoreRequest $request)
     {
       $country = Country::find($request['id']);
-      $country->update($request->all());
+      $country->update($request->All());
       return response()->json($country, 200);
     }
 
@@ -87,10 +95,10 @@ class CountriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-      $country = Country::find($id);
+      $country = Country::find($request['id']);
       $country->delete();
-      return respoonse()->json(null, 204);
+      return response()->json(null, 204);
     }
 }

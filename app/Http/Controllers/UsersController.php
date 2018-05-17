@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Restaurant;
-use App\Country;
 use App\Category;
 use App\Comment;
 use App\Post;
+use App\Role;
+use App\Country;
 use App\User;
+use App\Http\Requests\UserStoreRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -18,7 +20,7 @@ use Input;
 use Session;
 use Redirect;
 
-class UsersAPIController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
