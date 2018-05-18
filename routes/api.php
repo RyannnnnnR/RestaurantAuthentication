@@ -54,7 +54,7 @@ Route::post('posts/store', 'PostsController@store');
 Route::put('posts/update', 'PostsController@update');
 Route::delete('posts/destroy','PostsController@destroy');
 
-Route::get('user', 'UsersController@index');
-Route::post('user/store', 'UsersController@store');
-Route::put('user/update', 'UsersController@update');
-Route::delete('user/destroy','UsersController@destroy');
+Route::get('users', 'UsersController@index');
+Route::post('users/store', 'UsersController@store');
+Route::put('users/update', 'UsersController@update');
+Route::delete('users/destroy','UsersController@destroy');

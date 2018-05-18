@@ -44,11 +44,12 @@ class RestaurantsController extends Controller
     }
     public function findRestaurantWithCountryAndCategory(Request $request)
     {
-      return response()->json(Restaurant::where([['country_id','=',$request['country_id']],['category_id','=',$request['country_id']]]), 200);
+      $restaurants = Restaurant::where([['country_id','=',$request['country_id']],['category_id','=',$request['category_id']]])->get();
+      return response()->json($restaurants, 200);
     }
     public function restaurantWithPostsAndComments(Request $request)
     {
-      return response()->json(Restaurant::with(['country', 'category'])->find($request['id']), 200);
+      return response()->json(Restaurant::with(['posts.comments'])->find($request['id']), 200);
     }
     /**
      * Store a newly created resource in storage.
@@ -92,7 +93,7 @@ class RestaurantsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(RestaurantStoreRequest $request){
-      $restaurant = Restauurant::find($request['id']);
+      $restaurant = Restaurant::find($request['id']);
       $restaurant->update($request->all());
       return response()->json($restaurant, 201);
    }

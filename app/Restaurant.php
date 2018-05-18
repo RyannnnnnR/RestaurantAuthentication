@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
+  protected $fillable = [
+    'restname',
+    'restphone',
+    'restaddress1',
+    'restaddress2',
+    'suburb',
+    'state',
+    'numberofseats',
+    'country_id',
+    'category_id',
+  ];
     public function posts()
     {
       return $this->hasMany('App\Post');

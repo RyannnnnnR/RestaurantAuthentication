@@ -11,6 +11,7 @@ class User extends Model
     'name',
     'email',
     'password',
+    'country_id'
   ];
   public function posts(){
     return $this->belongsTo('App\Post');
