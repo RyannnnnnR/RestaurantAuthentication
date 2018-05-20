@@ -45,3 +45,8 @@
 // Route::resource('countries', 'CountriesController');
 // Route::resource('roles', 'RolesController');
 // Route::resource('categories', 'CategoriesController');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

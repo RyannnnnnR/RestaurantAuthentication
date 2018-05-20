@@ -50,7 +50,7 @@ class UsersController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-        $user = User::create($request->All());
+        $user = User::create($request->all());
         return response()->json($user, 201);
     }
 
