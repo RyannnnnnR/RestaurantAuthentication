@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Support\Facades\Log;
+use DB;
 use Closure;
 
 class LogAfterRequest
@@ -35,5 +36,6 @@ class LogAfterRequest
         $log = "{$ip}: [{$status}] {$method}@{$url} - {$duration}ms";
 
         Log::info($log);
+        DB::table('logs')->insert(['ip' => $ip, 'url' => $url, 'token' => $token, 'response' => $status]);
     }
 }
